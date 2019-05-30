@@ -1,4 +1,4 @@
-FROM debian:stretch 
+FROM debian:buster 
 
 # Update the repo info 
 RUN apt-get update
@@ -26,62 +26,70 @@ RUN apt-get install -y git vim xvfb
 #
 # Qt, designer, qtcreator, Qwt libraries for plots
 #
-RUN apt-get install -y qt5-default libqwt-qt5-6 libqwt-qt5-dev libqt5x11extras5 libqt5x11extras5-dev libqt5designercomponents5 qttools5-dev  qttools5-dev-tools libxmu-dev qtcreator
+RUN apt-get install -y qt5-default libqwt-qt5-6 libqwt-qt5-dev libqt5x11extras5 libqt5x11extras5-dev libqt5designercomponents5 qttools5-dev  qttools5-dev-tools libxmu-dev qtscript5-dev qtcreator qml-module-qtcharts qml-module-qtquick-controls2 qml-module-qtquick-dialogs qml-module-qtquick-extras qml-module-qtquick-scene2d qml-module-qtquick-scene3d qml-module-qtquick-templates2 qtdeclarative5-dev libqt5charts5-dev qtcharts5-examples qtcharts5-doc-html
 
 
 # Java
 #
-RUN apt-get install -y net-tools openjdk-8-jre-headless openjdk-8-jdk
+RUN apt-get install -y net-tools openjdk-11-jre-headless openjdk-11-jdk
 
 # Tools to generate documentation
-RUN apt-get install -y git doxygen graphviz 
+RUN apt-get install -y doxygen graphviz 
 
 # Autotools, build tools
-RUN apt-get install  -y build-essential autoconf libtool
+RUN apt-get install  -y build-essential autoconf libtool  ninja-build meson 
 
 ENV PKG_CONFIG_PATH /usr/local/lib/pkgconfig
 
 WORKDIR /var/lib
 
-RUN git clone https://github.com/ELETTRA-SincrotroneTrieste/cppqtclients.git
+RUN mkdir cppqtclients
 
-WORKDIR /var/lib/cppqtclients/cumbia
+WORKDIR /var/lib/cppqtclients
+
+RUN git clone https://github.com/ELETTRA-SincrotroneTrieste/cumbia-libs.git
+
+WORKDIR /var/lib/cppqtclients/cumbia-libs
 
 # REMOVE THIS 
 RUN git pull && echo OK && echo OK && echo OK
 
+RUN ./scripts/cubuild.sh tango install
 
-RUN autoconf && libtoolize && automake --add-missing 
-RUN ./configure --prefix=/usr/local --includedir=/usr/local/include/cumbia
-RUN make -j4 && make install
+#RUN autoconf && libtoolize && automake --add-missing 
+#RUN ./configure --prefix=/usr/local --includedir=/usr/local/include/cumbia
+#RUN make -j4 && make install
 
 
 # REMOVE THIS
-RUN git pull && echo OK
+#RUN git pull && echo OK
 
-WORKDIR /var/lib/cppqtclients/cumbia-tango
-RUN autoconf && libtoolize && automake --add-missing
-RUN ./configure --prefix=/usr/local --includedir=/usr/local/include/cumbia-tango
-RUN make -j4 && make install
+#WORKDIR /var/lib/cppqtclients/cumbia-tango
+#RUN autoconf && libtoolize && automake --add-missing
+#RUN ./configure --prefix=/usr/local --includedir=/usr/local/include/cumbia-tango
+#RUN make -j4 && make install
 
 
 
-WORKDIR /var/lib/cppqtclients/cumbia-qtcontrols
+#WORKDIR /var/lib/cppqtclients/cumbia-qtcontrols
 
 # REMOVE THIS
-RUN git pull && echo OK 
+#RUN git pull && echo OK 
 
-RUN qmake && make -j5 && make install
+#RUN qmake && make -j5 && make install
 
 #remove this
-RUN git pull && echo OK && echo OK  && echo OK && echo OK
+#RUN git pull && echo OK && echo OK  && echo OK && echo OK
 
-WORKDIR /var/lib/cppqtclients/qumbia-tango-controls
-RUN qmake && make -j5 && make install
+#WORKDIR /var/lib/cppqtclients/qumbia-tango-controls
+#RUN qmake && make -j5 && make install
 
-WORKDIR /var/lib/cppqtclients/qumbia-tango-controls/plugins
-RUN qmake && make -j5 && make install
+#WORKDIR /var/lib/cppqtclients/qumbia-tango-controls/plugins
+#RUN qmake && make -j5 && make install
 
+WORKDIR /var/lib/cppqtclients
+
+RUN git clone https://github.com/ELETTRA-SincrotroneTrieste/qtango.git
 
 WORKDIR /var/lib/cppqtclients/qtango
 
