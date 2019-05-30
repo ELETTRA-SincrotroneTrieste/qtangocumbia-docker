@@ -21,7 +21,7 @@ RUN apt-get install -y tango-db  liblog4tango-dev libtango-dev
 
 RUN apt-get install -y tango-test
 
-RUN apt-get install -y git vim xvfb
+RUN apt-get install -y git vim xvfb x11-apps
 
 #
 # Qt, designer, qtcreator, Qwt libraries for plots
