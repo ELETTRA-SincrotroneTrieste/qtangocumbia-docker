@@ -83,12 +83,12 @@ WORKDIR /var/lib/cppqtclients/qumbia-tango-controls/plugins
 RUN qmake && make -j5 && make install
 
 
-WORKDIR /var/lib/cppqtclients/qtango
+# WORKDIR /var/lib/cppqtclients/qtango
 
 # remove this!
-RUN git pull && echo oK && echo OK
+# RUN git pull && echo oK && echo OK
 
-RUN qmake && make -j5 && make install
+# RUN qmake && make -j5 && make install
 
 
 # configure supervisord
