@@ -89,14 +89,14 @@ RUN ./scripts/cubuild.sh tango install
 
 WORKDIR /var/lib/cppqtclients
 
-RUN git clone https://github.com/ELETTRA-SincrotroneTrieste/qtango.git
+# RUN git clone https://github.com/ELETTRA-SincrotroneTrieste/qtango.git
 
-WORKDIR /var/lib/cppqtclients/qtango
+# WORKDIR /var/lib/cppqtclients/qtango
 
 # remove this!
-RUN git pull && echo oK && echo OK
+# RUN git pull && echo oK && echo OK
 
-RUN qmake && make -j5 && make install
+# RUN qmake && make -j5 && make install
 
 
 # configure supervisord

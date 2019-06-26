@@ -1,5 +1,5 @@
 # qtangocumbia-docker
-Docker image with QTango and cumbia 
+Docker image with cumbia libraries
 
 #### Linux
 
