@@ -115,8 +115,8 @@ RUN chown -R mysql /var/run/mysqld
 RUN chown -R mysql /var/lib/mysql/tango
 
 # define tango host env var
-ENV TANGO_HOST qtangocumbia:10000
-ENV QT_PLUGIN_PATH /usr/local/lib/qumbia-tango-controls/plugins:/usr/local/lib/plugins
+ENV TANGO_HOST cumbiatest:10000
+ENV QT_PLUGIN_PATH /usr/local/cumbia-libs/lib/qumbia-plugins:/usr/local/lib/plugins
 
 # configure virtual monitor env variable
 ENV DISPLAY :0.0
